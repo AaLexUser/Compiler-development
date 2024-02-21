@@ -1,0 +1,128 @@
+\documentclass[12pt,onecolumn]{article}
+\usepackage[utf8]{inputenc} % UTF8 input encoding
+\usepackage[T2A]{fontenc}   % T2A font encoding for Cyrillic script
+\usepackage[russian]{babel} % Russian language support
+\usepackage{listings}
+\usepackage{float}
+\usepackage{mathtools}
+\everymath{\displaystyle}
+\usepackage{listings} 
+\usepackage[usenames]{color}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{verbatim}
+\newcommand{\nparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\geometry{
+  a4paper,
+  top=20mm, 
+  right=20mm, 
+  bottom=20mm, 
+  left=25mm
+}
+
+\begin{document}
+\setcounter{tocdepth}{4}
+\begin{center}
+    Федеральное государственное автономное образовательное учреждение высшего образования "Национальный Исследовательский Университет ИТМО"\\ 
+    Мегафакультет Компьютерных Технологий и Управления\\
+    Факультет Программной Инженерии и Компьютерной Техники \\
+    \includegraphics[scale=0.3]{image/itmo.jpg} % нужно закинуть картинку логтипа в папку с отчетом
+\end{center}
+\vspace{1cm}
+
+
+\begin{center}
+    \large \textbf{Вариант №5}\\
+    \textbf{Домашняя работа 1}\\
+    по дисциплине\\
+    \textbf{'Разработка компиляторов'}
+\end{center}
+
+\vspace{2cm}
+
+\begin{flushright}
+  Выполнил Студент  группы P33102\\
+  \textbf{Лапин Алексей Александрович}\\
+  Преподаватель: \\
+  \textbf{Лаздин Артур Вячеславович}\\
+\end{flushright}
+
+\vspace{9cm}
+\begin{center}
+    г. Санкт-Петербург\\
+    2024г.
+\end{center}
+\pagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section*{Задание}
+Для каждой грамматики из списка, соответствующему варианту, выполнить действия,
+указанные в таблице заданий, определить тип грамматики по классификации Хомского, и
+для грамматик типа 2 и 3 постройте вывод не менее двух предложений.
+Укажите язык, порождаемый грамматикой, в множественно-теоретическом виде.
+\nparagraph{№6}
+\textbf{Грамматика:}\\
+$S \to aB ~|~ \varepsilon$\\
+$B \to bS ~|~ bA$\\
+$A \to aA ~|~ \varepsilon$\\
+\textbf{Тип грамматики: } Контекстно-свободная
+\begin{enumerate}
+    \item $S \to \varepsilon$
+    \item $S \to aB \to abA \to ab$
+    \item $S \to aB \to abS \to abaB \to ababA \to abab$
+    \item $S \to aB \to abS \to abaB \to ababA \to ababaA \to ababaaA \to ababaaa$
+\end{enumerate}
+\textbf{Язык:} $L(G) = \{\left(ab\right)^n a^m, n \geq 0, m \geq 0\}$
+\nparagraph{№12}
+\textbf{Грамматика:}\\
+$S \to abC~ |~ aB$ \\
+$B \to bc$\\
+$bC \to bc$\\
+\textbf{Тип грамматики: } Контекстно-зависимая
+\begin{enumerate}
+    \item $S \to aB \to abc$
+    \item $S \to abC \to abc$
+\end{enumerate}
+\textbf{Язык:} $L(G) = {abc}$
+\nparagraph{№16}
+$S \to aS~ |~ bB~ |~ \varepsilon$\\
+$B \to aB~ |~ bS~ |~ bC$\\
+$C \to aC~ |~ \varepsilon$\\
+\textbf{Тип грамматики: } Контекстно-свободная
+\begin{enumerate}
+    \item $S \to \varepsilon$
+    \item $S \to bB \to bbC \to bb$
+    \item $S \to bB \to bbC \to bbaC \to bbaaC \to bbaaaC \to bbaaa$
+    \item $S \to bB \to baB \to baaB \to baaaB \to baaaaB \to baaaabC \to baaaabaC \to baaaabaaC \to baaaabaa$
+    \item $S \to aS \to aaS \to aaaS \to aaa$
+    \item $S \to aS \to aaS \to aabB \to aabbS \to aabbaS \to aabbaS \to aabbaaS \to aabbaa$
+    \item $S \to aS \to aaS \to aabB \to aabbS \to aabbaS \to aabbaaS \to aabbaabB\to aabbaabaB \to aabbaabaaB \to aabbaabaabC \to aabbaabaab$
+    \item $S \to aS \to aaS \to aabB \to aabbS \to aabbaS \to aabbaS \to aabbaaS \to aabbaabB \to aabbaabbS \to aabbaabbbB \to aabbaabbbbC \to aabbaabbbb$
+    \item $S \to aS \to aaS \to aabB \to aabbS \to aabbaS \to aabbaS \to aabbaaS \to aabbaabB \to aabbaabbS \to aabbaabbbB \to aabbaabbbbC \to aabbaabbbbaC \to aabbaabbbbaaC \to aabbaabbbbaaaC \to aabbaabbbbaaa$
+\end{enumerate}
+\textbf{Язык:} Символы $b$ или $a$ в любом порядке, количество $b$ четно. 
+\nparagraph{№23}
+$S \to bSS | ab$\\
+\textbf{Тип грамматики: } Контекстно-свободная
+\begin{enumerate}
+    \item $S \to ab$
+    \item $S \to bSS \to bSab \to babab$
+    \item $S \to bSS \to bSab \to bbSSab \to bbabSab \to bbabbSSab \to bbabbSabab \to bbabbababab$
+\end{enumerate}
+\textbf{Язык: } Последовательности символов $b$ и $ab$, количество $ab$ четно.
+\nparagraph{№23} 
+$S \to SS~ |~ RS$\\
+$R \to RR~ |~ 0$\\
+$RS \to SR$\\
+$0S0 \to 010$\\
+\textbf{Тип грамматики: } Контекстно-зависимая\\
+\begin{enumerate}
+    \item $S \to RS \to 0S \to 0SS\to 0RSS\to 0SRS \to 0S0S \to 010S \to 010RS \to 010SR \to 010S0 \to 01010$
+    \item $S \to RS \to 0S \to 0RS\to 0SR \to 0S0 \to 010$
+\end{enumerate}
+\textbf{Язык: }  $L(G) = \{0(10)^n, n > 0\}$
+
+\end{document}

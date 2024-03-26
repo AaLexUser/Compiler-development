@@ -1,0 +1,16 @@
+digraph bc {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+rankdir=LR;
+size="8,5";
+node [shape = doublecircle]; 5;
+node [shape = circle];
+1->2 [label = "b"];
+2->5 [label = "ε"];
+2->3 [label = "ε"];
+3->4 [label = "c"];
+4->3 [label = "ε"];
+4->5 [label = "ε"];
+
+}

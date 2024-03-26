@@ -1,0 +1,11 @@
+digraph abcfull {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+rankdir=LR;
+size="8,5";
+node [shape = doublecircle]; 3;
+node [shape = circle];
+1->2 [label = "a"];
+2->3 [label = "b"];
+}

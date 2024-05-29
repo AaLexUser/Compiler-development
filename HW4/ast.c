@@ -333,8 +333,8 @@ static void print_node(FILE *stream, int level, char *arguments, ...)
 }
 
 int seq_reg_num = 1;
-int if_num = 0;
-int while_num = 0;
+int if_num = -1;
+int while_num = -1;
 
 int next_reg()
 {
@@ -353,6 +353,7 @@ void interpret_prog(FILE *stream, struct ast *ast, int reg)
         return;
     }
     int rs2, temp1, temp2 = 0;
+    int num = 0;
     switch (ast->nodetype)
     {
     case NT_LIST:
@@ -474,50 +475,50 @@ void interpret_prog(FILE *stream, struct ast *ast, int reg)
         fprintf(stream, "sub x%d, x0, x%d\n", reg, reg);
         break;
     case NT_IF:
+        num = ++if_num;
         temp1 = next_reg();
         interpret_prog(stream, ((struct flow *)ast)->cond, temp1);
         if (((struct flow *)ast)->el != NULL)
         {
-            fprintf(stream, "beq x%d, x0, ELSE%d\n", temp1, if_num);
+            fprintf(stream, "beq x%d, x0, ELSE%d\n", temp1, num);
         }
         else
         {
-            fprintf(stream, "beq x%d, x0, ENDIF%d\n", temp1, if_num);
+            fprintf(stream, "beq x%d, x0, ENDIF%d\n", temp1, num);
         }
         free_reg();
         interpret_prog(stream, ((struct flow *)ast)->tl, reg);
-        fprintf(stream, "jal x%d, ENDIF%d\n", reg, if_num);
+        fprintf(stream, "jal x%d, ENDIF%d\n", reg, num);
         if (((struct flow *)ast)->el != NULL)
         {
-            fprintf(stream, "ELSE%d:\n", if_num);
+            fprintf(stream, "ELSE%d:\n", num);
             interpret_prog(stream, ((struct flow *)ast)->el, reg);
         }
-        fprintf(stream, "ENDIF%d:\n", if_num);
-        if_num++;
+        fprintf(stream, "ENDIF%d:\n", num);
         break;
     case NT_WHILE:
-        fprintf(stream, "WHILE%d:\n", while_num);
+        num = ++while_num;
+        fprintf(stream, "WHILE%d:\n", num);
         temp1 = next_reg();
         interpret_prog(stream, ((struct flow *)ast)->cond, temp1);
-        fprintf(stream, "beq x%d, x0, ENDWHILE%d\n", temp1, while_num);
+        fprintf(stream, "beq x%d, x0, ENDWHILE%d\n", temp1, num);
         free_reg();
         interpret_prog(stream, ((struct flow *)ast)->tl, reg);
-        fprintf(stream, "jal x%d, WHILE%d\n", reg, while_num);
-        fprintf(stream, "ENDWHILE%d:\n", while_num);
-        while_num++;
+        fprintf(stream, "jal x%d, WHILE%d\n", reg, num);
+        fprintf(stream, "ENDWHILE%d:\n", num);
         break;
     case NT_FOR:
+        num = ++while_num;
         interpret_prog(stream, ((struct for_loop *)ast)->init, reg);
-        fprintf(stream, "WHILE%d:\n", while_num);
+        fprintf(stream, "WHILE%d:\n", num);
         temp1 = next_reg();
         interpret_prog(stream, ((struct for_loop *)ast)->cond, temp1);
-        fprintf(stream, "beq x%d, x0, ENDWHILE%d\n", temp1, while_num);
+        fprintf(stream, "beq x%d, x0, ENDWHILE%d\n", temp1, num);
         free_reg();
         interpret_prog(stream, ((struct for_loop *)ast)->tl, reg);
         interpret_prog(stream, ((struct for_loop *)ast)->inc, reg);
-        fprintf(stream, "jal x%d, WHILE%d\n", reg, while_num);
-        fprintf(stream, "ENDWHILE%d:\n", while_num);
-        while_num++;
+        fprintf(stream, "jal x%d, WHILE%d\n", reg, num);
+        fprintf(stream, "ENDWHILE%d:\n", num);
         break;
     }
 }

@@ -18,45 +18,44 @@ struct symbol
 struct symbol symtab[NHASH];
 
 struct symbol *lookup(char *);
-struct symbol * define_sym(char *);
+struct symbol *define_sym(char *);
 
-typedef enum ntype {
+typedef enum ntype
+{
     /* keywords */
-    NT_IF, NT_WHILE, NT_FOR,
+    NT_IF,
+    NT_WHILE,
+    NT_FOR,
     /* comparison ops */
-    NT_EQ, NT_NEQ, NT_LT, NT_LTE, NT_GT, NT_GTE,
+    NT_EQ,
+    NT_NEQ,
+    NT_LT,
+    NT_LTE,
+    NT_GT,
+    NT_GTE,
     /* arithmetic ops */
-    NT_ADD, NT_SUB, NT_MUL, NT_DIV,
+    NT_ADD,
+    NT_SUB,
+    NT_MUL,
+    NT_DIV,
     /* logical ops */
-    NT_AND, NT_OR, NT_NOT,
+    NT_AND,
+    NT_OR,
+    NT_NOT,
     /* other */
-    NT_NUM, NT_REF, NT_ASGN, NT_LIST, NT_UMINUS
+    NT_NUM,
+    NT_REF,
+    NT_ASGN,
+    NT_LIST,
+    NT_UMINUS
 } ntype_t;
 
-static char* node2str[] ={
-    [NT_IF] = "IF",
-    [NT_WHILE] = "WHILE",
-    [NT_FOR] = "FOR",
-    [NT_EQ] = "==",
-    [NT_NEQ] = "!=",
-    [NT_LT] = "<",
-    [NT_LTE] = "<=",
-    [NT_GT] = ">",
-    [NT_GTE] = ">=",
-    [NT_ADD] = "+",
-    [NT_SUB] = "-",
-    [NT_MUL] = "*",
-    [NT_DIV] = "/",
-    [NT_AND] = "AND",
-    [NT_OR] = "OR",
-    [NT_NOT] = "NOT",
-    [NT_NUM] = "NUM",
-    [NT_REF] = "REF",
-    [NT_ASGN] = "ASGN",
-    [NT_LIST] = "LIST",
-    [NT_UMINUS] = "UMINUS"
-};
-
+static char *node2str[] = {
+    [NT_IF] = "IF",        [NT_WHILE] = "WHILE", [NT_FOR] = "FOR", [NT_EQ] = "==",     [NT_NEQ] = "!=",
+    [NT_LT] = "<",         [NT_LTE] = "<=",      [NT_GT] = ">",    [NT_GTE] = ">=",    [NT_ADD] = "+",
+    [NT_SUB] = "-",        [NT_MUL] = "*",       [NT_DIV] = "/",   [NT_AND] = "AND",   [NT_OR] = "OR",
+    [NT_NOT] = "NOT",      [NT_NUM] = "NUM",     [NT_REF] = "REF", [NT_ASGN] = "ASGN", [NT_LIST] = "LIST",
+    [NT_UMINUS] = "UMINUS"};
 
 /* nodes in the abstract syntax tree */
 struct ast
@@ -74,7 +73,7 @@ struct numval
 
 struct flow
 {
-    ntype_t nodetype;     /* type I or W */
+    ntype_t nodetype; /* type I or W */
     struct ast *cond; /* condition */
     struct ast *tl;   /* then or do list */
     struct ast *el;   /* optional else list */
@@ -106,7 +105,7 @@ struct symasgn
 struct ast *newast(ntype_t nodetype, struct ast *l, struct ast *r);
 struct ast *newcmp(ntype_t cmptype, struct ast *l, struct ast *r);
 struct ast *newflow(ntype_t nodetype, struct ast *cond, struct ast *tl, struct ast *el);
-struct ast* newfor(struct ast* init, struct ast* cond, struct ast* inc, struct ast* tl);
+struct ast *newfor(struct ast *init, struct ast *cond, struct ast *inc, struct ast *tl);
 struct ast *newnum(int d);
 struct ast *newref(char *s);
 struct ast *newasgn(char *s, struct ast *v);

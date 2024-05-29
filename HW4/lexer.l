@@ -10,7 +10,7 @@
 
 %%
 
-
+[0-9][a-zA-Z][a-zA-Z0-9]* { yyerror("Names cannot start with a digit");}
 [0-9]+          { yylval.i = atoi(yytext); return NUMBER; }
 
 
@@ -72,7 +72,7 @@
 
 [ \t]+                  { /* ignore whitespace */ }
 \\\n                    {printf("c> "); }  /* ignore line continuation */
-\n                      { return EOL; }
+\n                      {  }
 
 .                       { printf("Unexpected character: %c\n", yytext[0]); }
 

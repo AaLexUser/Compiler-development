@@ -1,0 +1,19 @@
+List
+  Assignment x
+    Constant 2
+  While
+    Comparison <=
+      Symbol x
+      Constant 10
+    If
+      Comparison ==
+        Symbol x
+        Constant 4
+      Assignment x
+        Operator +
+          Symbol x
+          Constant 2
+      Assignment x
+        Operator +
+          Symbol x
+          Constant 1

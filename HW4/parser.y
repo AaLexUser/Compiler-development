@@ -17,8 +17,8 @@ int yylex(void);
 /* declare tokens */
 %token <i> NUMBER
 %token <s> NAME
-%token EOL
-%token IF ELSE WHILE FOR
+%token EOL YYEOF
+%token IF ELSE WHILE FOR ELIF
 
 %right '='
 %left OR
@@ -28,37 +28,46 @@ int yylex(void);
 %left '+' '-'
 %left '*' '/'
 %nonassoc UMINUS
-%type <a> exp list flow elif_list
+%type <a> exp list flow if_stmt elif_stmt else_stmt
 
 %start prog
 %%
-prog:
-    | prog list EOL                     {
-                                            if($2 != NULL) {
-                                                print_ast(stdout, $2, 0);
+prog: list YYEOF                     {
+                                            if($1 != NULL) {
+                                                print_ast(stdout, $1, 0);
                                                 FILE* fl = fopen("out.S", "w");
+                                                FILE* fl2 = fopen("tree", "w");
                                                 if(fl == NULL) {
                                                     printf("Error opening file\n");
                                                     exit(1);
                                                 }
-                                                print_asm(fl, $2);
+                                                if(fl2 == NULL) {
+                                                    printf("Error opening file\n");
+                                                    exit(1);
+                                                }
+                                                print_asm(fl, $1);
+                                                print_ast(fl2, $1, 0);
                                                 fclose(fl);
-                                                treefree($2);
+                                                treefree($1);
                                             }
                                             printf("> ");
                                         }
-    | prog error EOL                    { yyerrok; printf("> ");}
+    | error YYEOF                    { yyerrok; printf("> ");}
     ;
 
-flow: IF exp '{' list '}'                           { $$ = newflow(NT_IF, $2, $4, NULL);  }
-    | IF exp '{' list '}' ELSE '{' list '}'         { $$ = newflow(NT_IF, $2, $4, $8); }
-    | IF exp elif_list ELSE '{' list '}'       { $$ = newflow(NT_IF, $2, $4, $8); }
+flow: if_stmt
     | WHILE exp '{' list '}'                        { $$ = newflow(NT_WHILE, $2, $4, NULL);  }
     | FOR '(' exp ';' exp ';' exp ')' '{' list '}'  { $$ = newfor($3, $5, $7, $10); }
     ;
 
-elif_list: /* nothing */                    { $$ = NULL; }
-    | ELIF exp                              { $$ = newast(NT_LIST, $1, NULL); }
+if_stmt: IF exp '{' list '}' else_stmt              { $$ = newflow(NT_IF, $2, $4, $6); }
+    | IF exp '{' list '}' elif_stmt                 { $$ = newflow(NT_IF, $2, $4, $6); }
+    ;
+elif_stmt: ELIF exp '{' list '}' else_stmt          { $$ = newflow(NT_IF, $2, $4, $6); }
+    | ELIF exp '{' list '}' elif_stmt               { $$ = newflow(NT_IF, $2, $4, $6); }
+    ;
+else_stmt:  /* nothing */                           { $$ = NULL; }
+    | ELSE '{' list '}'                             { $$ = $3; }
     ;
 list: /* nothing */                     { $$ = NULL; }
     | exp ';' list                      {

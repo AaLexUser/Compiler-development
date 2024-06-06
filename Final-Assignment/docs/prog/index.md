@@ -1,7 +1,7 @@
 ## Получившаяся грамматика
 **prog:**
 
-![prog](diagram/prog.png)
+![prog](../diagram/prog.png)
 
 **flow:**
 

@@ -1,0 +1,233 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2024-06-06T21:55:55.524247"><title>Examples | Compiler Development Final assignment</title><script type="application/json" id="virtual-toc-data">[{"id":"correct-programmes","level":0,"title":"Correct programmes","anchor":"#correct-programmes"},{"id":"error-handling","level":0,"title":"Error handling","anchor":"#error-handling"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b267/app.css" rel="stylesheet"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Examples | Compiler Development Final assignment"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Compiler Development Final assignment Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation//1.0/how-it-works.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Examples | Compiler Development Final assignment"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "writerside-documentation//1.0/how-it-works.html#webpage",
+    "url": "writerside-documentation//1.0/how-it-works.html",
+    "name": "Examples | Compiler Development Final assignment",
+    "description": "",
+    "image": "",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "writerside-documentation/#website",
+    "url": "writerside-documentation/",
+    "name": "Compiler Development Final assignment Help"
+}</script><!-- End Schema.org --></head><body data-id="How-it-works" data-main-title="Examples" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="starter-topic.md|About Final assignment"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Compiler Development Final assignment 1.0 Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="How-it-works" id="How-it-works.md">Examples</h1><p id="wupmgn_3797">In this section you can see examples of how the programme works.</p><section class="chapter"><h2 id="correct-programmes" data-toc="correct-programmes">Correct programmes</h2><section class="chapter"><h3 id="assignment" data-toc="assignment">Assignment</h3><p id="wupmgn_3798"><span class="control" id="wupmgn_3799">Query:</span></p><div class="code-block" data-lang="c">
+x = 4; y = 5;
+</div><p id="wupmgn_3801"><span class="control" id="wupmgn_3802">Output:</span></p><p id="wupmgn_3803"><code class="code" id="wupmgn_3804">out.S</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="asm">
+    jal x1, MAIN
+    x:
+    data 0 * 1
+    y:
+    data 0 * 1
+    MAIN:
+    li x1, 4
+    sw x0, 1, x1
+    li x1, 5
+    sw x0, 2, x1
+    ebreak
+</div></section><section class="chapter"><h3 id="arithmetic-and-logical-operations-branching-including-optional-elif-support-for-integer-and-logical-data-types-c-like-multi-line-comments" data-toc="arithmetic-and-logical-operations-branching-including-optional-elif-support-for-integer-and-logical-data-types-c-like-multi-line-comments">Arithmetic and logical operations. Branching, including optional elif. Support for integer and logical data types. C-like multi-line comments.</h3><p id="wupmgn_3806"><span class="control" id="wupmgn_3807">Query:</span></p><div class="code-block" data-lang="c">
+x = 4; 
+y = false;
+z = 0;
+if (y) {
+    z = 1;
+}
+/* Some Comment 
+ Multi-line 
+ Should be ignored 
+*/
+elif (x == 4) {
+    z = 2;
+}
+else {
+    z = 3;
+}
+</div><p id="wupmgn_3809"><span class="control" id="wupmgn_3810">Output:</span></p><p id="wupmgn_3811"><code class="code" id="wupmgn_3812">out.S</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="asm">
+jal x1, MAIN
+x:
+data 0 * 1
+y:
+data 0 * 1
+z:
+data 0 * 1
+MAIN:
+li x1, 4
+sw x0, 1, x1
+li x1, 0
+sw x0, 2, x1
+li x1, 0
+sw x0, 3, x1
+lw x2, x0, 2
+beq x2, x0, ELSE0
+li x1, 1
+sw x0, 3, x1
+jal x1, ENDIF0
+ELSE0:
+lw x2, x0, 1
+li x3, 4
+seq x2, x2, x3
+beq x2, x0, ELSE1
+li x1, 2
+sw x0, 3, x1
+jal x1, ENDIF1
+ELSE1:
+li x1, 3
+sw x0, 3, x1
+ENDIF1:
+ENDIF0:
+ebreak
+</div><p id="wupmgn_3814"><code class="code" id="wupmgn_3815">tree</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="tree">
+List
+Assignment x
+    Constant 4
+List
+    Assignment y
+    Constant 0
+    List
+    Assignment z
+        Constant 0
+    If
+        Symbol y
+        Assignment z
+        Constant 1
+        If
+        Comparison ==
+            Symbol x
+            Constant 4
+        Assignment z
+            Constant 2
+        Assignment z
+            Constant 3  
+</div><figure id="wupmgn_3817"><img alt="out2.png" src="Compiler-development/out2.png" title="out2.png" width="3456" height="1690"></figure></section><section class="chapter"><h3 id="for-operator" data-toc="for-operator">For operator</h3><p id="wupmgn_3818"><span class="control" id="wupmgn_3819">Query:</span></p><div class="code-block" data-lang="c">
+x = 4;
+y = 32;
+for (i = 1; i &lt; 5; i = i + 1) {
+    x = x * i;
+    y = y / 2;
+}
+</div><p id="wupmgn_3821"><span class="control" id="wupmgn_3822">Output:</span></p><p id="wupmgn_3823"><code class="code" id="wupmgn_3824">out.S</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="asm">
+jal x1, MAIN
+i:
+data 0 * 1
+x:
+data 0 * 1
+y:
+data 0 * 1
+MAIN:
+li x1, 4
+sw x0, 2, x1
+li x1, 32
+sw x0, 3, x1
+li x1, 1
+sw x0, 1, x1
+WHILE0:
+lw x2, x0, 1
+li x3, 5
+slt x2, x2, x3
+beq x2, x0, ENDWHILE0
+lw x1, x0, 2
+lw x2, x0, 1
+mul x1, x1, x2
+sw x0, 2, x1
+lw x1, x0, 3
+li x2, 2
+div x1, x1, x2
+sw x0, 3, x1
+lw x1, x0, 1
+li x2, 1
+add x1, x1, x2
+sw x0, 1, x1
+jal x1, WHILE0
+ENDWHILE0:
+ebreak
+</div><p id="wupmgn_3826"><code class="code" id="wupmgn_3827">tree</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="tree">
+List
+Assignment x
+    Constant 4
+List
+    Assignment y
+    Constant 32
+    For
+    Assignment i
+        Constant 1
+    Comparison &lt;
+        Symbol i
+        Constant 5
+    Assignment i
+        Operator +
+        Symbol i
+        Constant 1
+    List
+        Assignment x
+        Operator *
+            Symbol x
+            Symbol i
+        Assignment y
+        Operator /
+            Symbol y
+            Constant 2
+</div><figure id="wupmgn_3829"><img alt="out3.png" src="Compiler-development/out3.png" title="out3.png" width="3456" height="1642"></figure></section><section class="chapter"><h3 id="while-operator" data-toc="while-operator">While operator</h3><p id="wupmgn_3830"><span class="control" id="wupmgn_3831">Query:</span></p><div class="code-block" data-lang="c">
+x = 2;
+while(x &lt;= 10) {
+    if (x == 4) {
+        x = x + 2;
+    }
+    else {
+        x = x + 1;
+    }
+}
+</div><p id="wupmgn_3833"><span class="control" id="wupmgn_3834">Output:</span></p><p id="wupmgn_3835"><code class="code" id="wupmgn_3836">out.S</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="asm">
+jal x1, MAIN
+x:
+data 0 * 1
+MAIN:
+li x1, 2
+sw x0, 1, x1
+WHILE0:
+lw x2, x0, 1
+li x3, 10
+seq x4, x2, x3
+slt x5, x2, x3
+or x2, x4, x5
+beq x2, x0, ENDWHILE0
+lw x2, x0, 1
+li x3, 4
+seq x2, x2, x3
+beq x2, x0, ELSE0
+lw x1, x0, 1
+li x2, 2
+add x1, x1, x2
+sw x0, 1, x1
+jal x1, ENDIF0
+ELSE0:
+lw x1, x0, 1
+li x2, 1
+add x1, x1, x2
+sw x0, 1, x1
+ENDIF0:
+jal x1, WHILE0
+ENDWHILE0:
+ebreak
+</div><p id="wupmgn_3838"><code class="code" id="wupmgn_3839">tree</code></p><div class="code-collapse" data-lang="none" data-is-expanded="false" data-synopsis="tree">
+List
+  Assignment x
+    Constant 2
+  While
+    Comparison &lt;=
+      Symbol x
+      Constant 10
+    If
+      Comparison ==
+        Symbol x
+        Constant 4
+      Assignment x
+        Operator +
+          Symbol x
+          Constant 2
+      Assignment x
+        Operator +
+          Symbol x
+          Constant 1
+</div><figure id="wupmgn_3841"><img alt="out4.png" src="Compiler-development/out4.png" title="out4.png" width="3456" height="1614"></figure></section></section><section class="chapter"><h2 id="error-handling" data-toc="error-handling">Error handling</h2><p id="wupmgn_3842"><figure id="wupmgn_3843"><img alt="error1" src="Compiler-development/error1.png" title="error1" width="450" height="101"></figure><figure id="wupmgn_3844"><img alt="error2" src="Compiler-development/error2.png" title="error2" width="450" height="100"></figure><figure id="wupmgn_3845"><img alt="error3" src="Compiler-development/error3.png" title="error3" width="450" height="177"></figure></p></section><div class="last-modified">Last modified: 06 June 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="how-to-start.html" class="navigation-links__prev">How to start</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b267/app.js"></script></body></html>

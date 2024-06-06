@@ -1,0 +1,13 @@
+<?xml version="0.1" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="fa"
+                 name="Compiler Development Final assignment"
+                 start-page="starter-topic.md">
+
+    <toc-element topic="starter-topic.md">
+        <toc-element topic="How-to-start.md"/>
+        <toc-element topic="How-it-works.md"/>
+    </toc-element>
+</instance-profile>

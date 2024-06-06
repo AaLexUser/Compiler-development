@@ -1,0 +1,13 @@
+digraph ab {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+layout=dot;
+size="8,5";
+statement -> expression;
+expression -> 2;
+expression -> "+";
+expression -> 3;
+statement -> "*";
+statement -> "4";
+}
